@@ -1,0 +1,22 @@
+{
+ "posts": [
+  {
+   "id": 1,
+   "title": "Health Post",
+   "body": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt inventore, sapiente cumque quidem nulla enim asperiores eligendi, nesciunt odit sequi expedita architecto maiores eveniet dignissimos molestias voluptate est sint ea."
+  },
+  {
+   "id": 2,
+   "title": "JavaScript Post",
+   "body": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt inventore, sapiente cumque quidem nulla enim asperiores eligendi, nesciunt odit sequi expedita architecto maiores eveniet dignissimos molestias voluptate est sint ea."
+  },
+  {
+   "id": 3,
+   "title": "Relax Post",
+   "body": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt inventore, sapiente cumque quidem nulla enim asperiores eligendi, nesciunt odit sequi expedita architecto maiores eveniet dignissimos molestias voluptate est sint ea."
+  }
+ ],
+ "about": {
+  "title": "Page about me"
+ }
+}
