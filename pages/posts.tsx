@@ -2,28 +2,27 @@ import { NextPageContext } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Main } from "../components/Main";
 import { IPost } from "../interfaces/post";
+import { IPosts } from "../interfaces/posts";
+import { IRootState } from "../interfaces/state";
+import { getPosts } from "../store/actions/postAction";
 
-interface PostPageProps {
-  posts: IPost[]
-}
+export default function Posts({ serverPosts }) {
+  const [postsState, setPostsState] = useState(serverPosts)
 
-export default function Posts({ posts: serverPosts } : PostPageProps) {
-  const [posts, setPosts] = useState(serverPosts);
+  const dispatch = useDispatch()
+
+  const { posts } = useSelector((state: IRootState) => state.posts)
 
   useEffect(() => {
-    async function load() {
-      const res = await fetch(`${process.env.API_URL}/posts`);
-      const data = await res.json();
-      setPosts(data);
-    }
     if (!serverPosts) {
-      load();
+      dispatch(getPosts(setPostsState))
     }
   }, []);
 
-  if (!posts) {
+  if (!postsState) {
     return (
       <Main>
         <p>Loading...</p>
@@ -39,7 +38,7 @@ export default function Posts({ posts: serverPosts } : PostPageProps) {
 
       <h1>Posts Page</h1>
       <ul>
-        {posts.map((post) => (
+        {postsState?.map((post: IPost) => (
           <li key={post.id}>
             <Link href={`/post/[id]`} as={`/post/${post.id}`}>
               <a>{post.title}</a>
@@ -53,13 +52,13 @@ export default function Posts({ posts: serverPosts } : PostPageProps) {
 
 Posts.getInitialProps = async ({ req }: NextPageContext) => {
   if (!req) {
-    return { posts: null };
+    return { serverPosts: null };
   }
 
-  const res = await fetch("http://localhost:4200/posts");
-  const posts: IPost[] = await res.json();
+  const res = await fetch(`${process.env.API_URL}/posts`);
+  const serverPosts: IPosts = await res.json();
 
   return {
-    posts,
+    serverPosts,
   };
 };

@@ -16,7 +16,7 @@ const Post = ({ post: serverPost }: PostPageProps) => {
 
   useEffect(() => {
     async function load() {
-      const res = await fetch(`http://localhost:4200/posts/${router.query.id}`);
+      const res = await fetch(`${process.env.API_URL}/posts/${router.query.id}`);
       const data = await res.json();
       setPost(data);
     }
@@ -65,13 +65,3 @@ Post.getInitialProps = async ({ query, req }: PostNextPageContext) => {
   };
 };
 
-// export async function getServerSideProps({ query, req }) {
-//   const res = await fetch(`http://localhost:4200/posts/${query.id}`);
-//   const post = await res.json();
-
-//   return {
-//     props: {
-//       post,
-//     },
-//   };
-// }
